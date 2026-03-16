@@ -2,38 +2,38 @@
 
 using namespace std;
 
-class dummy {
-        int x;
-    public: 
-        dummy();
-        dummy(int in_x);
-        ~dummy();
-        int get_x() const;
-        void set_x(int in_x);
+class point {
+    int x, y;
+public:
+    point();
+    point(int in_x, int in_y);
+
+    void print() const;
+    void set_xy(int in_x, int in_y);
 };
 
 int main(void) {
-    dummy d1, d2(10);
-    cout << "d1.x = " << d1.get_x() << endl;
-    cout << "d2.x = " << d2.get_x() << endl;
+    point p1, p2(3,4), p3(5,6);
+    p1.print();
+    p2.print();
+    p3.print();
 }
 
-dummy::dummy() {
+point::point() {
     x = 0;
+    y = 0;
 }
 
-dummy::dummy(int in_x) {
+point::point(int in_x, int in_y) {
     x = in_x;
+    y = in_y;
 }
 
-dummy::~dummy() {
-    cout << "The destructor is called" << endl;
+void point::print() const {
+    cout << "(" << x << ", " << y << ")" << endl;
 }
 
-int dummy::get_x() const {
-    return x;
-}
-
-void dummy::set_x(int in_x) {
+void point::set_xy(int in_x, int in_y) {
     x = in_x;
+    y = in_y;
 }
