@@ -3,75 +3,55 @@
 
 using namespace std;
 
-class Gandalf {
-    int magicalPower;
-    int age;
-    char beardColor[12];
+class BankAccount {
+    double balance;
+    char accountHolder[50] = {0};
 public:
-    Gandalf();
-    void mp_usage(int mp);
-    int get_mp() const;
-    void spell_fireball();
-    void spell_lightning();
-    void action_wait();
-
+    BankAccount(double inputBalance, const char* inputName);
+    void deposit(double amount);
+    void withdraw(double amount);
+    double getBalance() const;
 };
 
 int main(void) {
-    Gandalf gandalf;
-    gandalf.spell_fireball();
-    gandalf.action_wait();
-    gandalf.spell_lightning();
-    gandalf.action_wait();
-    gandalf.action_wait();
-    gandalf.action_wait();
-    gandalf.spell_lightning();
-    gandalf.action_wait();
-    gandalf.action_wait();
-    gandalf.spell_fireball();
+    double inputBalance;
+    char inputName[50] = {0};
+
+    cout << "Enter account holder's name: ";
+    cin.getline(inputName, 50);
+    cout << "Enter initial balance: ";
+    cin >> inputBalance;
+
+    BankAccount account1(inputBalance, inputName);
+
+    cout << "Account holder: " << inputName << endl;
+    cout << "Initial balance: $" << account1.getBalance() << endl;
+
+    account1.deposit(100.0);
+    cout << "Balance after deposit: $" << account1.getBalance() << endl;
+    account1.withdraw(50.0);
+    cout << "Balance after withdrawal: $" << account1.getBalance() << endl;
+
+    return 0;
 }
 
-Gandalf::Gandalf() {
-    magicalPower = 100;
-    age = 2019;
-    strcpy(beardColor, "gray");
-    cout << "Gandalf the Gray is born with magical power: " << magicalPower << endl;
+BankAccount::BankAccount(double inputBalance, const char* inputName) {
+    balance = inputBalance;
+    strcpy(accountHolder, inputName);
 }
 
-void Gandalf::mp_usage(int mp) {
-    magicalPower -= mp;
+void BankAccount::deposit(double amount) {
+    balance += amount;
 }
 
-int Gandalf::get_mp() const {
-    return magicalPower;
-}
-
-void Gandalf::spell_fireball() {
-    if (magicalPower > 30) {
-        cout << "Gandalf casts Fireball!" << endl;
-        mp_usage(30);
+void BankAccount::withdraw(double amount) {
+    if (amount > balance) {
+        cout << "Insufficient funds!" << endl;
     } else {
-        cout << "Not enough magical power for Fireball!" << endl;
-        cout << "Current magical power: " << magicalPower << endl;
+        balance -= amount;
     }
 }
 
-void Gandalf::spell_lightning() {
-    if (magicalPower > 90) {
-        cout << "Gandalf casts Lightning!" << endl;
-        mp_usage(90);
-    } else {
-        cout << "Not enough magical power for Lightning!" << endl;
-    }
-    cout << "Current magical power: " << magicalPower << endl;
+double BankAccount::getBalance() const {
+    return balance;
 }
-
-void Gandalf::action_wait() {
-    cout << "Gandalf waits and regain some magical power." << endl;
-    magicalPower += 10;
-    if (magicalPower > 100) {
-        magicalPower = 100;
-    }
-    cout << "Current magical power: " << magicalPower << endl;
-}
-
