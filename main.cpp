@@ -46,6 +46,7 @@ int main(void) {
 
     int choice;
     bool isPlayer1Turn = true;
+    bool sameTurn = false;
 
     while (mech1.isAlive() && mech2.isAlive()) {
         cout << "\n===============================================" << endl;
@@ -71,21 +72,51 @@ int main(void) {
         cout << "Enter your choice: ";
         cin >> choice;
         
+
+
         switch (choice) {
             case 1:
-                mech1.attack_punch(mech2);
+                if (mech1.attack_punch(mech2)) {
+                    sameTurn = true;
+                }
+
+                else {
+                    sameTurn = false;
+                }
+
                 break;
             case 2:
-                mech1.attack_kick(mech2);
+                if (mech1.attack_kick(mech2)) {
+                    sameTurn = true;
+                }
+
+                else {
+                    sameTurn = false;
+                }
+
                 break;
             case 3:
-                mech1.attack_laser(mech2);
+                if (mech1.attack_laser(mech2)) {
+                    sameTurn = true;
+                }
+
+                else {
+                    sameTurn = false;
+                }
+
                 break;
             case 4:
                 mech1.recharge();
                 break;
             case 5:
-                mech1.repair();
+                if (mech1.repair()) {
+                    sameTurn = true;
+                }
+
+                else {
+                    sameTurn = false;
+                }
+
                 break;
             default:
                 cout << "Invalid choice! Please try again." << endl;
@@ -96,9 +127,10 @@ int main(void) {
             break;
         }
 
-        swap(mech1, mech2);
-
-        isPlayer1Turn = !isPlayer1Turn;
+        if (!sameTurn) {
+            swap(mech1, mech2);
+            isPlayer1Turn = !isPlayer1Turn;
+        }
     }
 
     return 0;
@@ -204,7 +236,7 @@ int Mech::attack_punch(Mech &target) {
     }
 
     energy -= 30;
-    double damage = (rand() % 40 + 50) / sqrt(double(target.getArmor() / 4.0));
+    double damage = (rand() % 40 + 50) / sqrt(double(target.getArmor() / 3.0));
     target.health -= int(damage);
     target.armor -= damage / 2;
 
