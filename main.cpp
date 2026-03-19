@@ -1,57 +1,61 @@
+// Class ARRAY
+
 #include <iostream>
-#include <cstring>
+#include <cmath>
 
 using namespace std;
 
-class BankAccount {
-    double balance;
-    char accountHolder[50] = {0};
+class ARRAY {
+    int n;
+    int *p;
 public:
-    BankAccount(double inputBalance, const char* inputName);
-    void deposit(double amount);
-    void withdraw(double amount);
-    double getBalance() const;
-};
+    ARRAY(int in_n);
+    ~ARRAY();
+    int get_n(int i);
+    void set();
+    void print();
+    
+};  
 
 int main(void) {
-    double inputBalance;
-    char inputName[50] = {0};
-
-    cout << "Enter account holder's name: ";
-    cin.getline(inputName, 50);
-    cout << "Enter initial balance: ";
-    cin >> inputBalance;
-
-    BankAccount account1(inputBalance, inputName);
-
-    cout << "Account holder: " << inputName << endl;
-    cout << "Initial balance: $" << account1.getBalance() << endl;
-
-    account1.deposit(100.0);
-    cout << "Balance after deposit: $" << account1.getBalance() << endl;
-    account1.withdraw(50.0);
-    cout << "Balance after withdrawal: $" << account1.getBalance() << endl;
-
+    ARRAY a(10);
+    a.set();
+    a.print();
     return 0;
 }
 
-BankAccount::BankAccount(double inputBalance, const char* inputName) {
-    balance = inputBalance;
-    strcpy(accountHolder, inputName);
-}
-
-void BankAccount::deposit(double amount) {
-    balance += amount;
-}
-
-void BankAccount::withdraw(double amount) {
-    if (amount > balance) {
-        cout << "Insufficient funds!" << endl;
-    } else {
-        balance -= amount;
+ARRAY::ARRAY(int in_n) {
+    n = in_n;
+    p = new int[n];
+    if (!p) {
+        cout << "Error allocating memory try again" << endl;
     }
 }
 
-double BankAccount::getBalance() const {
-    return balance;
+ARRAY::~ARRAY() {
+    delete [] p;
+}
+
+int ARRAY::get_n(int i) {
+    if (i < n) {
+        return p[i];
+    }
+
+    else {
+        cout << "Index out of bounds try again" << endl;
+        return 1;
+    }
+}
+
+void ARRAY::print() {
+    for (int i = 0; i < n; i++) {
+        cout << p[i] << " ";
+    }
+    cout << endl;
+}
+
+void ARRAY::set() {
+    for (int i = 0; i < n; i++) {
+        p[i] = pow(i, 2);
+    }
 }
