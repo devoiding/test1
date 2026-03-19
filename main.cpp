@@ -107,6 +107,7 @@ int main(void) {
                 break;
             case 4:
                 mech1.recharge();
+                sameTurn = false;
                 break;
             case 5:
                 if (mech1.repair()) {
@@ -120,6 +121,7 @@ int main(void) {
                 break;
             default:
                 cout << "Invalid choice! Please try again." << endl;
+                sameTurn = true;
         }
 
         if (!mech2.isAlive()) {
