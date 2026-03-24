@@ -20,13 +20,18 @@ class Hacker {
     std::string hackerAlias;
     int stolenData;
     int traceLevel;
+    int overClockLevel;
+    int fireWallBypassLevel;
+    int agencyDistractorLevel;
 public:
     Hacker(std::string alias);
     std::string getHackerAlias() const;
     int getStolenData() const;
     int getTraceLevel() const;
-    void hack(Server &target);
+    bool hack(Server &target, int secondsToHack);
     void maskIP();
+    void showStatus() const;
+    int blackMarket(std::string item);
 };
 
 #endif 
